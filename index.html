@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Below High Water - Maps & Guides</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<link rel="stylesheet" href="css/leaflet.css" />
+    	<link rel="stylesheet" href="css/screen.css" />
+	<link rel="stylesheet" href="css/MarkerCluster.css" />
+	<link rel="stylesheet" href="css/MarkerCluster.Default.css" />
+	<link rel="stylesheet" href="css/tabs.css" />
+	<link rel="shortcut icon" type="image/x-icon" href="markers/site-marker.png" />
+	<script src="js/leaflet.js"></script>
+	<script src="js/leaflet.markercluster.js"></script>
+	<script src="js/leaflet.markercluster-src.js"></script>
+	<script type="text/javascript" src="data/sites.geojson"></script>
+	<script type="text/javascript" src="data/sitespoly.geojson"></script>
+	<script type="text/javascript" src="data/modelpoly.geojson"></script>
+ 
+</head>
+<style>A {text-decoration: none;} </style>
+<body>
+
+<div id='map'></div>
+<div id="box" style="z-index:5;"></div>
+<script>
+
+//Base Maps from Open Street Map
+	var map = L.map('map')
+
+	Land = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+		maxZoom: 11,
+		minZoom: 11,
+		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+			     'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		id: 'mapbox/streets-v11',
+	}).addTo(map);
+
+//Google Satellite maps
+
+	Satellite = L.tileLayer('http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}', {
+		maxZoom: 11,
+		minZoom: 11,
+		attribution: '&copy; <a href="https://about.google/brand-resource-center/products-and-services/geo-guidelines/#required-attribution">Google </a> contributors'
+		}),
+
+//DORIS seabed map for Dorset
+	DORIS = L.tileLayer('https://doris.s3.amazonaws.com/newallbathy/{z}/{x}/{y}.png', {
+		maxZoom: 11,
+		minZoom: 11,
+		attribution: '&copy; <a href="https://www.dorsetwildlifetrust.org.uk/doris">Dorset Wildlife Trust</a>'
+			}),
+
+	
+//Marker template
+	siteflag = L.Icon.extend({
+		options: {
+    		iconSize:     [34, 56],
+		iconAnchor:   [17, 56],
+		shadowUrl: 'markers/icon-shadow.png',
+    		shadowSize:   [34, 56],
+    		shadowAnchor: [7, 41],  
+    		popupAnchor:  [0, -58]
+		}
+	})
+
+
+map.setView([50.61,-2.19],11);
+
+var baseMaps = {
+    	"Street": Land,
+	"Satellite": Satellite
+	};
+
+var overlayMaps = {
+	"DORIS": DORIS
+	};
+
+L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+var flagALPHA = new siteflag({iconUrl: 'markers/site-marker.png'})		
+		
+		SiteName = "";
+		
+		var Dived = new L.GeoJSON(sites, {
+		pointToLayer: (feature, latlng)=> {
+		return L.marker(latlng, {icon: flagALPHA});
+		},
+		onEachFeature: function (feature, layer) {
+		layer.on('mouseover', function (e) {
+			SiteName = feature.properties.NAME
+			WebAddy = feature.properties.URL
+			layer.bindPopup(SiteName)	
+			this.openPopup();
+		console.log(SiteName);
+		});			
+    		}
+		}).on('mouseover', PolyShow).on('mouseout', HidePoly).on('click', GoGuide).addTo(map);
+		
+		function PolyShow (e) {
+		SitePoly = new L.GeoJSON(sitespoly,{style: WideAng, filter: ClkdSite}).addTo(map)
+		function ClkdSite(feature) {
+  		if (feature.properties.NAME === SiteName) return true
+		};
+		SiteBnds = SitePoly.getBounds();
+		}		
+
+		function HidePoly (e) {
+		map.closePopup();
+		map.removeLayer(SitePoly);
+		}
+				
+		function WideAng(feature) {
+		return {
+        	fillColor: 'orange',
+       	 	weight: 2,
+        	opacity: 1,
+        	color: 'orange',  //Outline color
+       		fillOpacity: 0.15
+    		};
+		}
+
+		function ModelBoxes(feature) {
+		return {
+        	fillColor: 'purple',
+       	 	weight: 2,
+        	opacity: 1,
+        	color: 'purple',  //Outline color
+       		fillOpacity: 0.1
+    		};
+		}
+
+		Modelname = "",
+
+		ModelPoly = new L.GeoJSON(modelpoly,{
+		style: ModelBoxes,
+		onEachFeature: function (feature, layer) {
+		layer.on('mouseover', function (e) {
+			ModelName = feature.properties.NAME
+			WebAddy = feature.properties.URL
+			layer.bindPopup(ModelName)	
+			this.openPopup();
+		}
+		)
+		}
+		}).on('click', GoModel).addTo(map)
+
+		function GoGuide (e) {
+		window.open(WebAddy);
+		}	
+
+		function GoModel (e) {
+		window.open(WebAddy);
+		}	
+
+	window.addEventListener("orientationchange", function() {
+  	location.reload()
+	console.log("Switched")
+	}, false);
+
+
+</script>
+</body>
+</html>
+
+
+	

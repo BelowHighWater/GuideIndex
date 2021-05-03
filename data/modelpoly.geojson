@@ -1,0 +1,9 @@
+var modelpoly = {
+"type": "FeatureCollection",
+"name": "sitespoly",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "NAME": "Isle of Portland", "URL": "https://belowhighwater.github.io/Portland3D" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -2.563076, 50.485529 ], [ -2.564422, 50.598457 ], [ -2.325712, 50.599369 ], [ -2.324936, 50.486438 ], [ -2.563076, 50.485529 ] ] ] ] } },
+{ "type": "Feature", "properties": { "NAME": "Bournemouth Beach", "URL": "https://belowhighwater.github.io/Bmouth3D" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -1.916413, 50.691554 ], [ -1.916413, 50.727578 ], [ -1.859677, 50.727578 ], [ -1.859677, 50.691554 ], [ -1.916413, 50.691554 ] ] ] ] } }
+]
+}

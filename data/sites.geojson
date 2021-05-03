@@ -1,0 +1,10 @@
+var sites = {
+"type": "FeatureCollection",
+"name": "sites",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "NAME": "Branksome Beach", "URL" : "https://1a1b3423-3e8c-43bd-a815-bbfacd5ae8db.filesusr.com/ugd/9593d3_52d166b39c7644e1bfdc3ac148010e1d.pdf" }, "geometry": { "type": "Point", "coordinates": [ -1.905818, 50.704491 ] } },
+{ "type": "Feature", "properties": { "NAME": "Alum Chine", "URL" : "https://1a1b3423-3e8c-43bd-a815-bbfacd5ae8db.filesusr.com/ugd/9593d3_7fcd801eabfe40b5b8de56b4bf943170.pdf" }, "geometry": { "type": "Point", "coordinates": [ -1.891747, 50.708729 ] } },
+{ "type": "Feature", "properties": { "NAME": "Swanage Pier", "URL" : "https://1a1b3423-3e8c-43bd-a815-bbfacd5ae8db.filesusr.com/ugd/9593d3_47f88bde3a034f5d8c8547ed255b9343.pdf" }, "geometry": { "type": "Point", "coordinates": [ -1.9509002, 50.6082099 ] } },
+]
+}
