@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "rste",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::27700" } },
+"features": [
+{ "type": "Feature", "properties": { "fid": 1, "MINX": 373000.0, "MINY": 79000.0, "MAXX": 379000.0, "MAXY": 84000.0, "CNTX": 376000.0, "CNTY": 81500.0, "AREA": 30000000.0, "PERIM": 22000.0, "HEIGHT": 5000.0, "WIDTH": 6000.0 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 373000.0, 79000.0 ], [ 379000.0, 79000.0 ], [ 379000.0, 84000.0 ], [ 373000.0, 84000.0 ], [ 373000.0, 79000.0 ] ] ] } }
+]
+}
