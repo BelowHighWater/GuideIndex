@@ -67,8 +67,8 @@
 		}
 	})
 
-var SW = L.latLng(50.4, -2.5)
-var NE = L.latLng(50.7, -1.7)
+var SW = L.latLng(50.4, -2.3)
+var NE = L.latLng(50.7, -2)
 DorsetBounds = L.latLngBounds(NE,SW);
 
 //map.setView([50.61,-2.19],11);
@@ -87,24 +87,24 @@ var overlayMaps = {
 
 L.control.layers(baseMaps, overlayMaps).addTo(map);
 
-var flagALPHA = new siteflag({iconUrl: 'markers/site-marker.png'})		
-		
-		SiteName = "";
-		
-		var Dived = new L.GeoJSON(sites, {
-		pointToLayer: (feature, latlng)=> {
-		return L.marker(latlng, {icon: flagALPHA});
-		},
-		onEachFeature: function (feature, layer) {
-		layer.on('mouseover', function (e) {
-			SiteName = feature.properties.NAME
-			WebAddy = feature.properties.URL
-			layer.bindPopup(SiteName)	
-			this.openPopup();
-		console.log(SiteName);
-		});			
-    		}
-		}).on('mouseover', PolyShow).on('mouseout', HidePoly).on('click', GoGuide).addTo(map);
+//var flagALPHA = new siteflag({iconUrl: 'markers/site-marker.png'})		
+//		
+//		SiteName = "";
+//		
+//		var Dived = new L.GeoJSON(sites, {
+//		pointToLayer: (feature, latlng)=> {
+//		return L.marker(latlng, {icon: flagALPHA});
+//		},
+//		onEachFeature: function (feature, layer) {
+//		layer.on('mouseover', function (e) {
+//			SiteName = feature.properties.NAME
+//			WebAddy = feature.properties.URL
+//			layer.bindPopup(SiteName)	
+//			this.openPopup();
+//		console.log(SiteName);
+//		});			
+  //  		}
+	//	}).on('mouseover', PolyShow).on('mouseout', HidePoly).on('click', GoGuide).addTo(map);
 		
 		function PolyShow (e) {
 		SitePoly = new L.GeoJSON(sitespoly,{style: WideAng, filter: ClkdSite}).addTo(map)
