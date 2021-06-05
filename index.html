@@ -147,7 +147,7 @@ L.control.layers(baseMaps, overlayMaps).addTo(map);
 		layer.on('mouseover', function (e) {
 			ModelName = feature.properties.NAME
 			WebAddy = feature.properties.URL
-			layer.bindPopup(ModelName)	
+			//layer.bindPopup(ModelName)	
 			this.openPopup();
 		}
 		)
